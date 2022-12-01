@@ -1,0 +1,96 @@
+runner
+cp -r ./proyectos/iop-supervisor ./proyectos/iop-gestor-servicios
+cd proyectos/iop-gestor-servicios/
+mv iop-supervisor-runner.yaml iop-gestor-servicios-runner.yaml
+cambiar token y como inicia el archivo en el archivo .yaml
+Despues crear el secretodock
+no olvidarse de la carpeta vars en el archivo proyectos modificar name
+y ejecutar 
+ansible-playbook main.yml --extra-vars "vars_file=vars/proyectos.yml"
+
+
+
+docker run --name test -d -p 3001:3001 -v /home/andres/gitpruebas/iop-gestor-servicios/.env:/home/node/app/.env test
+
+docker run --rm -it --name test  -p 3008:3008 -v /home/andres/gitpruebas/servicio-cron/.env:/home/node/app/.env test
+
+kubectl -n testing logs iop-gestor-servicios-testing-deploy-5c56d69448-lmvnv vault-agent-init
+Cuidado con el vault traiciona cmodificando espacios
+
+{
+  "BASE_PATH":"iop-v2/iop-backend-core",
+  "DB_DATABASE":"database_db",
+  "DB_HOST":"192.168.21.62",
+  "DB_PASSWORD":"postgres",
+  "DB_PORT":"5432",
+  "DB_SCHEMA_PARAMETRICAS":"parametricas",
+  "DB_SCHEMA_USUARIOS":"usuarios",
+  "DB_USERNAME":"postgres",
+  "IOP_GATEWAY_TOKEN":"token",
+  "IOP_GATEWAY_URL":"http://127.0.0.1:3002",
+  "IOP_GESTION_TOKEN":"token",
+  "IOP_GESTION_URL":"http://127.0.0.1:3001",
+  "IOP_MEFP_TOKEN ":"token",
+  "IOP_MEFP_URL":"https://interoperabilidad-fake.agcs.agetic.gob.bo/fake",
+  "IOP_NOTIFICACION_TOKEN":"token",
+  "IOP_NOTIFICACION_URL":"http://127.0.0.1:3004",
+  "IOP_SEGIP_TOKEN":"TOKEN_IOP",
+  "IOP_SEGIP_URL":"https://interoperabilidad.agetic.gob.bo/fake/segip",
+  "IOP_SIN_TOKEN":"TOKEN_IOP",
+  "IOP_SIN_URL":"https://interoperabilidad.agetic.gob.bo/fake/impuestos/v1",
+  "IOP_SUPERVISOR_TOKEN":"token",
+  "IOP_SUPERVISOR_URL":"http://127.0.0.1:3003",
+  "IOP_VAULT_TOKEN":"token",
+  "IOP_VAULT_URL":"http://127.0.0.1:3002",
+  "JWT_EXPIRES_IN":"300000",
+  "JWT_SECRET":"super+secret+jwt",
+  "LOG_COMPRESS":"false",
+  "LOG_HIDE":"'errorRequest.headers.authorization errorRequest.headers.cookie errorRequest.body.contrasena'",
+  "LOG_INTERVAL":"1d",
+  "LOG_PATH":"",
+  "LOG_SIZE":"5M",
+  "LOG_SQL":"false",
+  "LOG_STD_OUT":"false",
+  "LOG_URL":"",
+  "LOG_URL_TOKEN":"",
+  "MSJ_TOKEN":"TOKEN_MENSAJERIA",
+  "MSJ_URL":"https://URL_BASE_MENSAJERIA/",
+  "NODE_ENV":"development",
+  "OIDC_CLIENT_ID":"m7YNG67gN3E1H9Sdq4UNs",
+  "OIDC_CLIENT_SECRET":"mcScl6-BloWwuP-w67zr_dnqX7_3p4zj8n41A9kv2WGRp5hl9q7AJFQ2Z1V9GmFnzOml2xOqy2Uvakp1DeJqCg",
+  "OIDC_ISSUER":"https://cuenta.demo.gtic.gob.bo",
+  "OIDC_POST_LOGOUT_REDIRECT_URI":"http://localhost:8080/login",
+  "OIDC_REDIRECT_URI":"http://localhost:8080/login",
+  "OIDC_SCOPE":"'openid profile fecha_nacimiento email celular offline_access'",
+  "PATH_SUBDOMAIN":"api",
+  "PORT":"3000",
+  "REFRESH_TOKEN_DOMAIN":"test.agetic.gob.bo",
+  "REFRESH_TOKEN_EXPIRES_IN":"3600000",
+  "REFRESH_TOKEN_NAME":"jid",
+  "REFRESH_TOKEN_PATH":"/",
+  "REFRESH_TOKEN_REVISIONS":"'*/5 * * * *'",
+  "REFRESH_TOKEN_ROTATE_IN":"900000",
+  "REFRESH_TOKEN_SECURE":"false",
+  "SESSION_SECRET":"super+secret+session+key",
+  "STORAGE_NFS_PATH":"DIRECTORIO_ARCHIVOS/",
+  "SWAGGER_DESCRIPTION":"'BASE MICROSERVICE'",
+  "SWAGGER_TAG":"BASE",
+  "SWAGGER_TITLE":"'BASE MICROSERVICE'",
+  "SWAGGER_VERSION":"'BASE MICROSERVICE'",
+  "URL_FRONTEND":"http://localhost:8080/",
+  "URL_RABBITMQ":"amqp://admin:admin@127.0.0.1:5672",
+  "URL_RABBITMQ_QUEUE":"BASE_COMUNICATION"
+}
+
+
+curl -d "client_id=istio" -d "username=test" -d "password=test" -d "grant_type=password" "http://localhost:8080/realms/istio/protocol/openid-connect/token"
+
+curl -d "client_id=Istio" -d "username=test" -d "password=test" -d "grant_type=password" "http://localhost:8080/realms/istio/protocol/openid-connect/token"
+
+TOKEN=$(curl -d "client_id=books" -d "username=test" -d "password=test" -d "client_secret=GdOkGwXd2GKUoodWkN6fC2qut7TBFpkJ" -d "grant_type=password" "http://192.168.49.2:31398/realms/istio/protocol/openid-connect/token" -s | jq -r '.access_token')
+
+TOKEN2=$(curl -d "client_id=customers" -d "username=test2" -d "password=test2" -d "client_secret=hHAopTm3SR3xnqeay2Cqt1Z76QJbm3ZD" -d "grant_type=password" "http://192.168.49.2:31398/realms/istio/protocol/openid-connect/token" -s | jq -r '.access_token')
+
+TOKEN3=$(curl -d "client_id=admin" -d "username=test3" -d "password=test3" -d "client_secret=IrYu7NMDfUaUTDuDc2xxRIyKcpPZgPmc" -d "grant_type=password" "http://192.168.49.2:31398/realms/istio/protocol/openid-connect/token" -s | jq -r '.access_token')
+
+TOKEN4=$(curl -d "client_id=orders" -d "username=test4" -d "password=test4" -d "client_secret=p5H3HFTViRwK6PD4V4j0NPGCaDpe84EG" -d "grant_type=password" "http://192.168.49.2:31398/realms/istio/protocol/openid-connect/token" -s | jq -r '.access_token')
